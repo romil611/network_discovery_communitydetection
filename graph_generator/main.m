@@ -9,6 +9,7 @@ num_nodes = max(actual_com(:,1));
 Nt = randi(num_nodes,[num_Nt,1]);
 S = ismember(network(:,1),Nt);
 S = network(S,:);
+mu = 0.05;
 community(1:size(actual_com,1),1:2) = -1; 
 community(Nt,:) = actual_com(Nt,:);    %for now only
 for i = 1:size(actual_com,1)
@@ -19,7 +20,7 @@ budget = 1;
 cur_cost = 0;
 Nc_S = setdiff(network(S(:,1),2),S(:,1));
 while cur_cost < budget 
-   i =  Choose_Node(S, community, network, Nc_S, num_com, cost, budget, cur_cost);
+   i =  Choose_Node(S, community, network, Nc_S, num_com, cost, budget, cur_cost, mu);
    new_node = Nc_S(i);
    new_net = network(:,1) == new_node;
    new_net = network(new_net,:);
