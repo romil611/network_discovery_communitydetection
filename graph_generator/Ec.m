@@ -6,6 +6,7 @@ function [ Eci ] = Ec(S, community, i)
     a = community(:,2) == i;
     a = community(a,1);
     b = ismember(S(:,1),a);
+    b = S(b,:);
     Eci = find ( community(b(:,1),2) == community(b(:,2),2) );
     Eci = size(Eci,1);
 end
