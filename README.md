@@ -3,9 +3,7 @@
 
 In real world, we often don't have access to the entire network of nodes and edges. This motivated researchers to
 propose various link prediction and community detection algorithms. A lot of work has been done on network
-discovery(link prediction) and community detection individually. However, recently, there has been an attempt [[1]](http://hanj.cs.illinois.edu/pdf/wsdm15_jliu.pdf)
-
-to integrate these two problems hoping that each of these would help the other.
+discovery(link prediction) and community detection individually. However, recently, there has been an attempt [[1]](http://hanj.cs.illinois.edu/pdf/wsdm15_jliu.pdf) to integrate these two problems hoping that each of these would help the other.
 
 During the network discovery and community detection process, it is possible that certain nodes would rapidly
 change the communities as we discover the network while certain nodes would remain constant. The goal is to
