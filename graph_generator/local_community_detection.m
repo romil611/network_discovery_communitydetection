@@ -6,20 +6,17 @@ while iter < threshold
     iter = iter +1;
     temp = theta(local,:)*theta';
     %q = zeros([size(A,1),size(A,1),num_com]);
-    for k = 1:num_com
+    for k = 1:1
         a = theta(local,k);
         b = repmat(a,[1,size(A,1)]);
-        sum(local)
-        size(local)
-        size(b)
-      %  tt = bsxfun(@times,b,theta(:,k))./temp;
-     %   size(tt)
-     
-%         q(local,:,k) = ;
+        qqqq = bsxfun(@times,b,theta(:,k)')./temp;
+        q(local,:,k) = qqqq;
     end
 
-    for k = 1:num_com    
-        temp2 = A.*q(local,:,k);
+    for k = 1:num_com
+        temp3 = q(local,:,k);
+        size(A)
+        temp2 = A.*temp3;
         theta(local,k) = sum(temp2,2)/sqrt(sum(sum(A.*q(:,:,k))));
     end
 end
