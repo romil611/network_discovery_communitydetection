@@ -2,12 +2,20 @@
 
 clc;
 clear;
-load ('ire_data_1000.mat');
+load ('ire_data_10000.mat');
 tic;
 
 num_nodes = max(actual_com(:,1));
 num_Nt = floor(num_nodes*.15); % randomly picked
-Nt = randi(num_nodes,[num_Nt,1]);
+nodes_per_com = 10;
+s = zeros(num_com*nodes_per_com,1);
+for i = 1:num_com
+t = actual_com(:,2) == i;
+t = actual_com(t,1);
+s((i-1)*nodes_per_com+1:(i)*nodes_per_com) = t(1:nodes_per_com);
+end
+Nt = s;
+% Nt = randi(num_nodes,[num_Nt,1]);
 S = ismember(network(:,1),Nt);
 S = network(S,:);
 mu = 0.05;
@@ -19,7 +27,9 @@ for i = 1:size(Nt,1)
 a = B(:,1) == Nt(i);
 A(i,:) = ismember(Nt,B(a,2));
 end
-%community(Nt,:) = actual_com(Nt,:);    %for now only
+temp = 1:num_nodes;
+[c,~,~] = SpectralClustering(A, num_com,3);
+community(Nt,:) = [temp(Nt)',c];
 for i = 1:size(actual_com,1)
     cost.(strcat('a',int2str(actual_com(i,1)))) = 1; % for now cost is same for every node
 end
