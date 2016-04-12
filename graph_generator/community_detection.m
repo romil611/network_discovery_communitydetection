@@ -10,6 +10,8 @@ while iter < threshold
     for k = 1:num_com
         a = theta(:,k);
         b = repmat(a,[1,size(A,1)]);
+        size(b)
+        size(a)
         q(:,:,k) = bsxfun(@times,b,a)./temp;
     end
 

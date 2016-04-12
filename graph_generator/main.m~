@@ -17,7 +17,7 @@ num_nodes = max(actual_com(:,1));
 num_Nt = floor(num_nodes*.15); % randomly picked
 
 Nt = randi(num_nodes,[num_Nt,1]);
-theta = randi([1,28],size(actual_com,1),num_com);
+theta = randi([1,28],size(net,1),num_com);
 S = ismember(network(:,1),Nt);
 S = network(S,:);
 orig_num_edge = size(S,1); 
@@ -51,18 +51,17 @@ while cur_cost < budget
    Nc_S = setdiff(network(S(:,1),2),S(:,1)); %discover locality 
    %update community
    
-  % if (cur_num_edge - orig_num_edge)/ orig_num_edge >= 0.1 %global update
+   if (cur_num_edge - orig_num_edge)/ orig_num_edge >= 0.1 %global update
        global_count = global_count + 1;
        orig_num_edge = cur_num_edge;
        [list_com, q, theta] = community_detection(theta, A, num_com, threshold);
        
+   else
+       local_count = local_count + 1;
+       local = S(:,1) == new_node;
+       [list_com, q, theta] = local_community_detection(theta, q, A, num_com, threshold, local);
        
-%    else
-%        local_count = local_count + 1;
-%        local = S(:,1) == new_node;
-%        [list_com, q, theta] = local_community_detection(theta, q, A, num_com, threshold, local);
-%        
-%    end
+   end
          
 end
 toc;

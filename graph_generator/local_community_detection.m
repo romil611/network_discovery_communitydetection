@@ -1,7 +1,5 @@
 function [ list_com, q, theta] = local_community_detection( theta, q, A, num_com, threshold, local)
 
-%UNTITLED Summary of this function goes here
-%Detailed explanation goes here
 %local is the logical index of the locality of the new nodes added
 iter = 0;
 while iter < threshold
@@ -11,7 +9,13 @@ while iter < threshold
     for k = 1:num_com
         a = theta(local,k);
         b = repmat(a,[1,size(A,1)]);
-        q(local,:,k) = bsxfun(@times,b,theta(:,k))./temp;
+        sum(local)
+        size(local)
+        size(b)
+      %  tt = bsxfun(@times,b,theta(:,k))./temp;
+     %   size(tt)
+     
+%         q(local,:,k) = ;
     end
 
     for k = 1:num_com    
