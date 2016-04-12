@@ -13,7 +13,7 @@ function [ the_chosen_one] = Choose_Node(S, community, Network, Nc_S, num_com, c
 score = zeros(size(Nc_S,1),1);
     for i =  1:size(Nc_S)
         if cur_cost + cost.(strcat('a',int2str(Nc_S(i)))) <= budget
-            score(i) =  Normalized_Cut(Network, S, community, Nc_S, num_com, i);
+            score(i) =  Normalized_Cut_1(Network, S, community, Nc_S, num_com, i);
             score(i) = score(i)*(cost.(strcat('a',int2str(Nc_S(i))))^mu); % adjust score
         end
     end

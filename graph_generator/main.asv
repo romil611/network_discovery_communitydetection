@@ -28,7 +28,7 @@ budget = 1;
 cur_cost = 0;
 Nc_S = setdiff(network(S(:,1),2),S(:,1));
 while cur_cost < budget 
-   i = Choose_Node(S, community, network, Nc_S, num_com, cost, budget, cur_cost, mu);
+   i =  Choose_Node(S, community, network, Nc_S, num_com, cost, budget, cur_cost, mu);
    new_node = Nc_S(i);
    new_net = network(:,1) == new_node;
    new_net = network(new_net,:);
@@ -39,3 +39,9 @@ while cur_cost < budget
    
 end
 toc;
+% todo remove for loops in
+%       line 11 of this file
+%       3 nested for loops
+%       24 line
+%       25 line
+%       evaluation of the result
