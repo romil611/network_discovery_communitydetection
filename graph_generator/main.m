@@ -2,7 +2,7 @@
 
 clc;
 clear;
-load ('ire_data_10000.mat');
+load ('ire_data_1000.mat');
 tic;
 
 mu = 0.05;
@@ -50,28 +50,28 @@ qqqqqqq = 1
 while cur_cost < budget 
    i = Choose_Node(S, community, network, Nc_S, num_com, cost, budget, cur_cost, mu);
    cur_cost = 1;
-%    new_node = Nc_S(i);
-%    new_net = network(:,1) == new_node;
-%    new_net = network(new_net,:);
-%    S = [S;new_net];
-%    cur_num_edge = size(S,1);
-%    cur_cost = cost.(strcat('a',int2str(i))) + cur_cost; 
-%    Nc_S = setdiff(network(S(:,1),2),S(:,1)); %discover locality 
-%    %update community
-%    qqqqqqq = 2
-%    
-%   % if (cur_num_edge - orig_num_edge)/ orig_num_edge >= 0.1 %global update
-%        global_count = global_count + 1;
-%        orig_num_edge = cur_num_edge;
-%        [list_com, q, theta] = community_detection(theta, A, num_com, threshold);
-%        
+   new_node = Nc_S(i);
+   new_net = network(:,1) == new_node;
+   new_net = network(new_net,:);
+   S = [S;new_net];
+   cur_num_edge = size(S,1);
+   cur_cost = cost.(strcat('a',int2str(i))) + cur_cost; 
+   Nc_S = setdiff(network(S(:,1),2),S(:,1)); %discover locality 
+   %update community
+   qqqqqqq = 2
+   
+  % if (cur_num_edge - orig_num_edge)/ orig_num_edge >= 0.1 %global update
+       global_count = global_count + 1;
+       orig_num_edge = cur_num_edge;
+       [list_com, q, theta] = community_detection(theta, A, num_com, threshold);
        
-%    else
-%        local_count = local_count + 1;
-%        local = S(:,1) == new_node;
-%        [list_com, q, theta] = local_community_detection(theta, q, A, num_com, threshold, local);
-%        
-%    end
+       
+   else
+       local_count = local_count + 1;
+       local = S(:,1) == new_node;
+       [list_com, q, theta] = local_community_detection(theta, q, A, num_com, threshold, local);
+       
+   end
          
 end
 toc;

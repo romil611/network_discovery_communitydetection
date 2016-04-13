@@ -11,7 +11,7 @@ for k = 1:num_comm
     if Assoc(temp, community, k) > 0
         scoreA(k) = (Cut(temp, community, k)/Assoc(temp, community, k));
     else
-        scoreA(k) = 0;
+        scoreA(k) = inf;
     end
 end
 
