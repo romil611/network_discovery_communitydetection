@@ -1,4 +1,4 @@
-function [ list_com, q, theta, temp] = community_detection( theta, A, num_com, threshold, iter_max)
+function [ list_com, q, theta, temp] = community_detection2( theta, A, num_com, threshold, iter_max)
 
 %UNTITLED Summary of this function goes here
 %Detailed explanation goes here
