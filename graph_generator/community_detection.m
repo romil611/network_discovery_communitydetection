@@ -6,6 +6,7 @@ iter = 0;
 diff = inf;
 q = zeros([size(A,1),size(A,1),num_com]);
 while iter < iter_max && diff > threshold
+    old = theta;
     iter = iter +1;
     temp = theta*theta';
     for k = 1:num_com
@@ -19,5 +20,6 @@ while iter < iter_max && diff > threshold
         temp2 = A.*q(:,:,k);
         theta(:,k) = sum(temp2,2)/sqrt(sum(sum(A.*q(:,:,k))));
     end
+    diff = sum(sum(theta-old));
 end
 [~,list_com] =  max(theta,[],2);
