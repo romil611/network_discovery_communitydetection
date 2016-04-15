@@ -1,4 +1,4 @@
-function [ list_com, q, theta] = local_community_detection( theta, q, A, num_com, threshold, loca, iter_maxl)
+function [ list_com, q, theta] = local_community_detection( theta, q, A, num_com, threshold, local, iter_max)
 
 %local is the logical index of the locality of the new nodes added
 iter = 0;
@@ -17,7 +17,8 @@ while iter < iter_max && diff > threshold
     for k = 1:num_com
         temp3 = q(local,:,k);
         size(A)
-        temp2 = A.*temp3;
+        size(temp3)
+        temp2 = A(local,:).*temp3;
         theta(local,k) = sum(temp2,2)/sqrt(sum(sum(A.*q(:,:,k))));
     end
 end
