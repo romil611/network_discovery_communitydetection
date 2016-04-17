@@ -2,28 +2,27 @@
 
 clc;
 clear;
-load ('ire_data_1000.mat');
+load ('footbal.mat');
 tic;
 
 mu = 0.05;
-budget = 1;
 cur_cost = 0;
 local_count = 0;
 global_count = 0;
 threshold = 0.5;
 num_nodes = max(actual_com(:,1));
-num_Nt = floor(num_nodes*.5); % randomly picked
+% num_Nt = floor(num_nodes*.8); % randomly picked
 nodes_per_com = 10;
-iter_max = 1;
+iter_max = 30;
 com_track = zeros([num_nodes,num_com]);
-
+budget = num_nodes;
 Nt = zeros(num_com*nodes_per_com,1);
-% for i = 1:num_com
-%     t = actual_com(:,2) == i;
-%     t = actual_com(t,1);
-%     Nt((i-1)*nodes_per_com+1:(i)*nodes_per_com) = t(1:nodes_per_com);
-% end
-Nt = randi(num_nodes,[num_Nt,1]);
+for i = 1:num_com
+    t = actual_com(:,2) == i;
+    t = actual_com(t,1);
+    Nt((i-1)*nodes_per_com+1:(i)*nodes_per_com) = t(1:nodes_per_com);
+end
+% Nt = randi(num_nodes,[num_Nt,1]);
 Nc = Nt;
 
 S = ismember(network(:,1),Nt);
@@ -55,9 +54,8 @@ end
 Nc_S = setdiff(S(:,2),S(:,1));
 fprintf('%d\n',cur_cost);
 while cur_cost < budget
-    %     i = Choose_Node(S, community, network, Nc_S, num_com, cost, budget, cur_cost, mu);
+    i = Choose_Node(S, community, network, Nc_S, num_com, cost, budget, cur_cost, mu);
     fprintf('%d\n',cur_cost);
-    i =1;
     new_node = Nc_S(i);
     new_net = network(:,1) == new_node;
     new_net = network(new_net,:);
@@ -101,15 +99,16 @@ while cur_cost < budget
         temp(1:end-1,:) = theta;
         temp(end,:) = (10-1)*rand([num_com,1]);
         theta = temp;
-        temp = zeros([size(Nc,1),size(Nc,1),num_com]);
+        temp = rand([size(Nc,1),size(Nc,1),num_com]);
         temp(1:end-1,1:end-1,:) = q;
-        temp(:,end,:) = rand([])
+        q = temp;
         local_count = local_count + 1;
         local = S(:,1) == new_node;
         local = S(local,2);
         local = ismember(Nc,local);
+        qqq
         [list_com, q, theta] = local_community_detection(theta, q, A, num_com, threshold, local, iter_max);
-        community(local,:) = [Nc(local),list_com];
+        community(local,:) = [Nc(local),list_com(local)];
         com_track(Nc(local),list_com) = com_track(Nc(local),list_com) + 1;
     end
 end

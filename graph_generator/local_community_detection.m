@@ -16,8 +16,6 @@ while iter < iter_max && diff > threshold
 
     for k = 1:num_com
         temp3 = q(local,:,k);
-        size(A)
-        size(temp3)
         temp2 = A(local,:).*temp3;
         theta(local,k) = sum(temp2,2)/sqrt(sum(sum(A.*q(:,:,k))));
     end
