@@ -2,14 +2,14 @@
 
 clc;
 clear;
-load ('coauthor.mat');
+load ('ire_data_1000.mat');
 tic;
 
 mu = 0.05;
 cur_cost = 0;
 local_count = 0;
 global_count = 0;
-threshold = 0.5;
+threshold = 0.05;
 num_nodes = max(actual_com(:,1));
 num_Nt = floor(num_nodes*.3); % randomly picked
 nodes_per_com = 10;
