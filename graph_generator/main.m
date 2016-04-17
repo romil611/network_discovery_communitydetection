@@ -2,7 +2,7 @@
 
 clc;
 clear;
-load ('ire_data_1000.mat');
+load ('coauthor.mat');
 tic;
 
 mu = 0.05;
